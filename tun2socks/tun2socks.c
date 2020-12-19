@@ -774,7 +774,6 @@ void print_help (const char *name)
         "        [--password-file <file>]\n"
         "        [--append-source-to-username]\n"
 #ifdef __ANDROID__
-        "        [--enable-udprelay]\n"
         "        [--udprelay-max-connections <number>]\n"
 #else
         "        [--udpgw-remote-server-addr <addr>]\n"
@@ -1014,10 +1013,6 @@ int parse_arguments (int argc, char *argv[])
         else if (!strcmp(arg, "--append-source-to-username")) {
             options.append_source_to_username = 1;
         }
-#ifdef __ANDROID__
-        else if (!strcmp(arg, "--enable-udprelay")) {
-            options.udpgw_remote_server_addr = "0.0.0.0:0";
-#else
         else if (!strcmp(arg, "--udpgw-remote-server-addr")) {
             if (1 >= argc - i) {
                 fprintf(stderr, "%s: requires an argument\n", arg);
@@ -1025,7 +1020,6 @@ int parse_arguments (int argc, char *argv[])
             }
             options.udpgw_remote_server_addr = argv[i + 1];
             i++;
-#endif
         }
 #ifdef __ANDROID__
         else if (!strcmp(arg, "--udprelay-max-connections")) {

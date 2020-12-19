@@ -269,7 +269,7 @@ static SocksUdpGwClient_connection *connection_init (SocksUdpGwClient *client, S
     BPending_Set(&o->first_job);
 
     // init UDP dgram
-    if (!BDatagram_Init(&o->udp_dgram, client->socks_server_addr.type, client->reactor, o, (BDatagram_handler)dgram_handler)) {
+    if (!BDatagram_Init(&o->udp_dgram, client->remote_udpgw_addr.type, client->reactor, o, (BDatagram_handler)dgram_handler)) {
         goto fail0;
     }
 
@@ -287,8 +287,8 @@ static SocksUdpGwClient_connection *connection_init (SocksUdpGwClient *client, S
         ipaddr.type = client->dnsgw.type;
         BDatagram_SetSendAddrs(&o->udp_dgram, client->dnsgw, ipaddr);
     } else {
-        ipaddr.type = client->socks_server_addr.type;
-        BDatagram_SetSendAddrs(&o->udp_dgram, client->socks_server_addr, ipaddr);
+        ipaddr.type = client->remote_udpgw_addr.type;
+        BDatagram_SetSendAddrs(&o->udp_dgram, client->remote_udpgw_addr, ipaddr);
     }
 
     // init UDP dgram interfaces
